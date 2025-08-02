@@ -27,6 +27,9 @@ model = keras.Sequential([
     # `input_shape=[2]` because our data has 2 features.
     layers.Dense(16, activation='relu', input_shape=[2], name='hidden_layer_1'),
 
+    # TASK 1: A second hidden layer with 8 neurons using 'relu' activation for added model capacity.
+    layers.Dense(8, activation='relu', name='hidden_layer_2'),
+
     # The output layer has 1 neuron because this is a binary classification problem.
     # We use the 'sigmoid' activation function to get a probability output between 0 and 1.
     layers.Dense(1, activation='sigmoid', name='output_layer')
@@ -44,7 +47,7 @@ print("---")
 # - Loss Function: 'binary_crossentropy' is used for two-class (binary) problems.
 # - Metrics: We want to monitor the 'accuracy' during training.
 model.compile(
-    optimizer='adam',
+    optimizer='sgd', # TASK 2: optimizer='adam' to sgd model
     loss='binary_crossentropy',
     metrics=['accuracy']
 )
@@ -59,7 +62,7 @@ print("Starting model training...")
 history = model.fit(
     X_train,
     y_train,
-    epochs=50,
+    epochs=100, # TASK 3: increase step epochs=50 to 100
     batch_size=32,
     validation_split=0.1, # Use 10% of training data for validation
     verbose=1
